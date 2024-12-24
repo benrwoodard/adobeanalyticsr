@@ -1,3 +1,5 @@
+# adobeanalyticsr 0.5.0
+
 # adobeanalyticsr 0.4.0
 
 * added calculated metrics management functions
