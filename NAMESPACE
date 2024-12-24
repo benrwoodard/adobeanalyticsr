@@ -2,6 +2,7 @@
 
 export(auth_jwt)
 export(auth_oauth)
+export(auth_s2s)
 export(aw_anomaly_report)
 export(aw_auth)
 export(aw_auth_name)

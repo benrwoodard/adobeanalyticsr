@@ -4,6 +4,7 @@
 \alias{aw_auth}
 \alias{auth_jwt}
 \alias{auth_oauth}
+\alias{auth_s2s}
 \title{Generate an Access Token for the Adobe Analytics v2.0 API}
 \usage{
 aw_auth(type = aw_auth_with(), ...)
@@ -15,6 +16,8 @@ auth_jwt(
   ...
 )
 
+auth_s2s(file = Sys.getenv("AW_AUTH_FILE"), s2s_token = NULL, ...)
+
 auth_oauth(
   client_id = Sys.getenv("AW_CLIENT_ID"),
   client_secret = Sys.getenv("AW_CLIENT_SECRET"),
@@ -22,7 +25,7 @@ auth_oauth(
 )
 }
 \arguments{
-\item{type}{Either 'jwt' or 'oauth'. This can be set explicitly, but a best practice is
+\item{type}{Either 's2s' or 'oauth'. This can be set explicitly, but a best practice is
 to run \code{aw_auth_with()} to set the authorization type as an environment variable before
 running \code{aw_auth()}}
 
@@ -52,11 +55,13 @@ The path of the cached token. This is returned invisibly.
 }
 \description{
 \strong{Note:} \code{aw_auth()} is the primary function used for authorization. \code{auth_oauth()}
-and \code{auth_jwt()} should typically not be called directly.
+and \code{auth_s2s()} should typically not be called directly.
 }
 \section{Functions}{
 \itemize{
 \item \code{auth_jwt()}: Authenticate with JWT token
+
+\item \code{auth_s2s()}: Authenticate with S2S token
 
 \item \code{auth_oauth()}: Authorize via OAuth 2.0
 
