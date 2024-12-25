@@ -52,14 +52,21 @@ library(adobeanalyticsr)
 There are four setup steps required to start accessing your Adobe Analytics data. The following steps are each outlined in greater detail in the following sections:
 
   1. Create an Adobe Console API Project
-  2. Create and add the OAuth/JWT arguments to your `.Renviron` file.
-  3. Set the type of authorization being used by calling `aw_auth_with(type = "")`. The `type` value should be **jwt** or **oauth**
+  2. Create and add the OAuth or S2S arguments to your `.Renviron` file.
+  3. Set the type of authorization being used by calling `aw_auth_with(type = "")`. The `type` value should be **S2S** or **oauth**
   4. Get your authorization token using `aw_auth()`. Once the authorization type has been set (the previous step), this will look for `.Renviron` variables and complete the authorization.
   5. Get your `company_id` by using the function `get_me()`.
 
 #### 1. Create an Adobe Console API Project
 
-If you are using the OAuth authorization, regardless of how many different Adobe Analytics accounts you will be accessing, you only need a single Adobe Console API project (you will still need to have working user credentials for each account you want to access, but the Adobe Console API project is just the way you then get access to authenticate using those user credentials; yes...confusing!) If you are using the JWT authorization then you will need an Adobe Console API project created for each company you will be accessing.  The following steps will get you setup on either of the different authorizations:
+If you are using the OAuth authorization, regardless of how many different Adobe 
+Analytics accounts you will be accessing, you only need a single Adobe Console 
+API project (you will still need to have working user credentials for each 
+account you want to access, but the Adobe Console API project is just the way 
+you then get access to authenticate using those user credentials; yes...confusing!) 
+If you are using the S2S authorization then you will need an Adobe Console API 
+project created for each organization you will be accessing.  The following 
+steps will get you setup on either of the different authorizations:
 
   1. Navigate to the following URL: https://console.adobe.io/integrations.
   2. Click the **Create New Project** button and select **Empty Project**
@@ -71,10 +78,10 @@ If you are using the OAuth authorization, regardless of how many different Adobe
       2. Select **Web** as the platform where you want the integration.
       3. Add Default redirect URI <code>https://adobeanalyticsr.com/token_result.html</code>*.
       4. Add Redirect URI pattern <code>https://adobeanalyticsr\.com/token_result\.html</code>*.
-  * *JWT*
-      1. Select the **Service Account (JWT)** options and then click **Next**.
-      2. Click on the **Generate a Key Pair** button. A config file will download onto your desktop.
-      3. Select the product profiles to be included in the access and click **Save configured API**.
+  * *S2S*
+      1. Select the **Server-toServer** options and then click **Next**.
+      2. Click on the **Full CJA Access** button.
+      3. Click **Save configured API**.
   
 \* This is simply a helper site we've set up in order to make it easier to generate a token. The site does not store any information.
 
@@ -91,10 +98,15 @@ This file is essential to keeping your information secure. It also speeds up ana
 
       * (OAuth) `AW_CLIENT_ID` -- the client id found in the Adobe Developer Console
       * (OAuth) `AW_CLIENT_SECRET` -- the client secret key found in the Adobe Developer Console
-      * (JWT) `AW_PRIVATE_KEY` -- unzip the downloaded **config.zip** file and move the **.key** file to a convenient location. An example file name is `~/aa_20_api/private.key`. This variable, `AW_PRIVATE_KEY`, should reference the accurate path for the file.
-      * (JWT) `AW_AUTH_FILE` -- The path of a JSON file containing fields with
-        JWT authentication data. This file may be found packaged in the
-        `config.zip` file, or you may create it yourself. See below.
+      * (S2S) `AW_AUTH_FILE` -- The path of a JSON file containing fields with
+        S2S authentication data. This file is downloaded by clicking Click on 
+        "OAuth Server-to-Server" under "CREDENTIALS" in the left column. Locate 
+        the "Download JSON" button on the top right and click it to download the 
+        JSON file. Alternatively, you can manually create this file by copying 
+        and pasting the Client ID, Client Secret (click “Retrieve client secret”), 
+        Technical Account ID, and Organization ID into a `.json` file.  Reference 
+        `?cja_auth` for more information on the variables needed. Using the 
+        preconfigured JSON file is the easiest method.
 
   3. (Optional) Add `AW_COMPANY_ID` and `AW_REPORTSUITE_ID` variables once you know them (how to find available values for these two variables is described in step 4 below).
       
@@ -109,9 +121,8 @@ AW_CLIENT_SECRET = "[OAuth client secret]"
 AW_COMPANY_ID = "[Company ID]"
 AW_REPORTSUITE_ID = "[RSID]"
 
-## If using JWT 
+## If using S2S 
 AW_AUTH_FILE = "[auth_file.json]"
-AW_PRIVATE_KEY = "[private.key]"
 AW_COMPANY_ID = "[Company ID]"
 AW_REPORTSUITE_ID = "[RSID]"
 ```
@@ -120,10 +131,12 @@ An example authentication JSON file contains the following at a minimum:
 
 ```json
 {
-	"API_KEY":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+	"API_KEY":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", #OAuth
+	"Client_ID: "xxxxxxxxxxxxxx", #S2S Auth
 	"CLIENT_SECRET":"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+	"SCOPES": ["xxx", "xxx"], #S2S Auth
 	"ORG_ID":"xxxxxxxxxxxxxxxxxxxxxxxx@AdobeOrg",
-	"TECHNICAL_ACCOUNT_ID":"xxxxxxxxxxxxxxxxxxxxxxxx@techacct.adobe.com"
+	"TECHNICAL_ACCOUNT_ID":"xxxxxxxxxxxxxxxxxxxxxxxx@techacct.adobe.com" #OAuth
 }
 ```
 
@@ -151,7 +164,14 @@ As noted above, this token will expire every 24 hours, so you will have to perio
 
 \* Again, this is simply a helper site I've set up in order to make it easier to generate a token. The site does not store any information.
 
-**JWT process**
+**S2S process**
+S2S does _not_ require an interactive environment and does not require a token refresh every 24 hours, but it does require a bit more work to set up initially (as described above). To authenticate using S2S:
+
+1. In the console, enter `aw_auth_with('s2s')` and press _Enter_.
+2. Enter `aw_auth()` and press **Enter**.
+3. You should see the confirmation message: "Successfully authenticated with S2S: access token valid until..."
+
+**JWT process** _deprecated as of January 27, 2025_
 JWT does _not_ require an interactive environment and does not require a token refresh every 24 hours, but it does require a bit more work to set up initially (as described above). To authenticate using JWT:
 
 1. In the console, enter `aw_auth_with('jwt')` and press _Enter_.
