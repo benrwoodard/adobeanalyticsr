@@ -459,10 +459,13 @@ AdobeJwtToken <- R6::R6Class("AdobeJwtToken", list(
 #' @export
 auth_s2s <- function(file = Sys.getenv("AW_AUTH_FILE"),
                      s2s_token = NULL,
+                     type = 's2s',
                      ...) {
   if (file == "") {
     stop("Variable 'AW_AUTH_FILE' not found but required for default S2S authentication.\nSee `?aw_auth`")
   }
+
+  aw_auth_with(type = 's2s')
 
   secrets <- jsonlite::fromJSON(file)
 

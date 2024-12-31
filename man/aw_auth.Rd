@@ -16,7 +16,12 @@ auth_jwt(
   ...
 )
 
-auth_s2s(file = Sys.getenv("AW_AUTH_FILE"), s2s_token = NULL, ...)
+auth_s2s(
+  file = Sys.getenv("AW_AUTH_FILE"),
+  s2s_token = NULL,
+  type = "s2s",
+  ...
+)
 
 auth_oauth(
   client_id = Sys.getenv("AW_CLIENT_ID"),
