@@ -155,7 +155,6 @@ retrieve_aw_token <- function(...) {
 
     # Check expiration
     if(type == 'jwt'){
-      message('jwt token refreshing...')
         if (!token$validate()) {
         # This might be the wrong thing to do with OAuth, but it's the right
         # thing to do for JWT
