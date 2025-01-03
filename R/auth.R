@@ -36,6 +36,8 @@ aw_auth <- function(type = aw_auth_with(), ...) {
   }
   type <- match.arg(type, c("s2s", "oauth", "jwt"))
 
+  aw_auth_with(type)
+
   switch(type,
          jwt = auth_jwt(...),
          oauth = auth_oauth(...),
@@ -464,12 +466,9 @@ auth_s2s <- function(file = Sys.getenv("AW_AUTH_FILE"),
     stop("Variable 'AW_AUTH_FILE' not found but required for default S2S authentication.\nSee `?aw_auth`")
   }
 
-  aw_auth_with(type = 's2s')
-
   secrets <- jsonlite::fromJSON(file)
 
   resp <- auth_s2s_gen(secrets = secrets, s2s_token = s2s_token)
-
 
   # If successful
   message("Successfully authenticated with S2S: access token valid until ",
