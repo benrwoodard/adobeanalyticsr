@@ -307,6 +307,8 @@ auth_jwt <- function(file = Sys.getenv("AW_AUTH_FILE"),
     stop("Variable 'AW_AUTH_FILE' not found but required for default JWT authentication.\nSee `?aw_auth`")
   }
 
+  aw_auth_with('jwt')
+
   secrets <- jsonlite::fromJSON(file)
 
   resp <- auth_jwt_gen(secrets = secrets, private_key = private_key, jwt_token = jwt_token)
@@ -468,6 +470,8 @@ auth_s2s <- function(file = Sys.getenv("AW_AUTH_FILE"),
 
   secrets <- jsonlite::fromJSON(file)
 
+  aw_auth_with('s2s')
+
   resp <- auth_s2s_gen(secrets = secrets, s2s_token = s2s_token)
 
   # If successful
@@ -597,6 +601,8 @@ auth_oauth <- function(client_id = Sys.getenv("AW_CLIENT_ID"),
     if (any(c(client_id, client_secret) == "")) {
         stop("Client ID or Client Secret not found. Are your environment variables named `AW_CLIENT_ID` and `AW_CLIENT_SECRET`?")
     }
+
+    aw_auth_with('oauth')
 
     aw_endpoint <- httr::oauth_endpoint(
         authorize = "authorize/v2/",
