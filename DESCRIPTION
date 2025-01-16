@@ -38,7 +38,8 @@ Imports:
     vctrs,
     progress,
     memoise,
-    utils
+    utils,
+    httr2
 Suggests:
     knitr,
     testthat (>= 3.0.0),

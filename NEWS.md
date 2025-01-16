@@ -1,5 +1,8 @@
 # adobeanalyticsr 0.5.0
 
+* added OAuth Server-to-Server (S2S) authentication support
+* minor changes to the documentation
+
 # adobeanalyticsr 0.4.0
 
 * added calculated metrics management functions

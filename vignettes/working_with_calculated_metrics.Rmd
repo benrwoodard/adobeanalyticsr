@@ -100,7 +100,7 @@ Calculated Metrics are comprised of several different mathematical functions tha
 
 ### Get all functions
 
-Returns a full list of calculated metric functions that the user can access. See the [functions documentation](https://experienceleague.adobe.com/docs/analytics/components/calculated-metrics/calcmetrics-reference/cm-functions.html?lang=en) for more information on available functions. 
+Returns a full list of calculated metric functions that the user can access. See the [functions documentation](https://experienceleague.adobe.com/en/docs/analytics/components/calculated-metrics/calcmetric-workflow/cm-build-metrics#areas-of-the-calculated-metrics-builder) for more information on available functions. 
 
 ```
 all_functions <- get_cm_functions(company_id = company_id)
@@ -122,12 +122,12 @@ The process of creating a calculated metric has been designed in a modular way t
 
 #### Create a function object
 
-Calculated Metrics are comprised of several different mathematical functions that work on available metrics for a given report suite. See the [functions documentation](https://experienceleague.adobe.com/docs/analytics/components/calculated-metrics/calcmetrics-reference/cm-functions.html?lang=en) for more information on available functions. 
+Calculated Metrics are comprised of several different mathematical functions that work on available metrics for a given report suite. See the [functions documentation](https://experienceleague.adobe.com/en/docs/analytics/components/calculated-metrics/calcmetric-workflow/cm-build-metrics#areas-of-the-calculated-metrics-builder) for more information on available functions. 
 
 Currently the package only supports 2 types of functions:
 
 1. Any function that take a single metric
-  - Examples of these functions include `Absolute Value (Row)` and `Column Maximum`.  Both of which apply a function on a single metric. For a full list make sure to see the [functions documentation](https://experienceleague.adobe.com/docs/analytics/components/calculated-metrics/calcmetrics-reference/cm-functions.html).
+  - Examples of these functions include `Absolute Value (Row)` and `Column Maximum`.  Both of which apply a function on a single metric. For a full list make sure to see the [functions documentation](https://experienceleague.adobe.com/en/docs/analytics/components/calculated-metrics/calcmetric-workflow/cm-build-metrics#areas-of-the-calculated-metrics-builder).
   
 2. The `Approximate Count Distinct (dimension)` function
   - Returns the approximated distinct count of dimension items for the selected dimension. The function uses the HyperLogLog (HLL) method of approximating distinct counts.  It is configured to guarantee the value is within 5% of the actual value 95% of the time. 
@@ -192,7 +192,7 @@ jsonlite::toJSON(cm_form, pretty = T, auto_unbox = T)
 
 #### Create a calculated metric object
 
-Using the `cm_build` function gives the ability to create and validate simple and complex calculated metrics. If you are familiar with the calculated metrics user interface you should be able to quickly recognize what each aspect of the function arguments refer to but fo those who are less familiar the [calculated metrics builder documentation](https://experienceleague.adobe.com/docs/analytics/components/calculated-metrics/calcmetric-workflow/cm-build-metrics.html?lang=en#areas-of-the-calculated-metrics-builder) may be of great use.
+Using the `cm_build` function gives the ability to create and validate simple and complex calculated metrics. If you are familiar with the calculated metrics user interface you should be able to quickly recognize what each aspect of the function arguments refer to but fo those who are less familiar the [calculated metrics builder documentation](https://experienceleague.adobe.com/en/docs/analytics/components/calculated-metrics/calcmetric-workflow/cm-build-metrics) may be of great use.
 
 ```
 ?cm_build

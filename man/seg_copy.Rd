@@ -65,5 +65,5 @@ response will be returned to help understand what needs to be corrected.
 This function copies and existing function and creates a duplicate based on the definition.
 }
 \details{
-See more information \href{https://experienceleague.adobe.com/docs/analytics/components/segmentation/segmentation-workflow/seg-build.html}{here}
+See more information \href{https://experienceleague.adobe.com/en/docs/analytics/components/segmentation/segmentation-workflow/seg-build}{here}
 }

@@ -46,6 +46,8 @@ and \code{TECHNICAL_ACCOUNT_ID}.}
 \item{jwt_token}{\emph{(Optional)} A custom, encoded, signed JWT claim. If used,
 \code{client_id} and \code{client_secret} are still required.}
 
+\item{s2s_token}{\emph{(Optional)} A custom, encoded, S2S authentication token.}
+
 \item{client_id}{The client ID, defined by a global variable or manually defined}
 
 \item{client_secret}{The client secret, defined by a global variable or manually defined}

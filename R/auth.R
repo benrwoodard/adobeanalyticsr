@@ -18,6 +18,7 @@
 #' @param private_key Filename of the private key for JWT authentication.
 #' @param jwt_token _(Optional)_ A custom, encoded, signed JWT claim. If used,
 #'   `client_id` and `client_secret` are still required.
+#' @param s2s_token _(Optional)_ A custom, encoded, S2S authentication token.
 #' @param use_oob if `FALSE`, use a local webserver for the OAuth dance.
 #'   Otherwise, provide a URL to the user and prompt for a validation code.
 #'   Defaults to the value of the `httr_oob_default` default, or TRUE if
@@ -27,7 +28,7 @@
 #'
 #' @return The path of the cached token. This is returned invisibly.
 #' @family auth
-#' @aliases aw_auth auth_jwt auth_oauth
+#' @aliases aw_auth auth_jwt auth_oauth auth_s2s
 #' @export
 aw_auth <- function(type = aw_auth_with(), ...) {
 
@@ -502,13 +503,11 @@ auth_s2s_gen <- function(secrets,
   }
 
 
-    s2s_token <- get_s2s_token(s2s_token = s2s_token,
+    token <- get_s2s_token(s2s_token = s2s_token,
                                client_id = secrets$CLIENT_ID,
                                scopes = secrets$SCOPES,
                                client_secrets = secrets$CLIENT_SECRETS
                                )
-    #somewhat redundant for now but not sure if I don't need the s2s_token var
-    token <- s2s_token
 
     token
 }

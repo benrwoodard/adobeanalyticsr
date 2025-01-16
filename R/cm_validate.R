@@ -18,7 +18,7 @@
 #' available `company_id` values.
 #'
 #' @details
-#' See more information [here](https://experienceleague.adobe.com/docs/analytics/components/calculated-metrics/calcmetric-workflow/cm-build-metrics.html?lang=en)
+#' See more information [here](https://experienceleague.adobe.com/en/docs/analytics/components/calculated-metrics/calcmetric-workflow/cm-build-metrics)
 #'
 #' @return A string confirming the calculated metric is valid or is not valid.
 #'
