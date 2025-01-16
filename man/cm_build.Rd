@@ -73,5 +73,5 @@ response will be returned to help understand what needs to be corrected.
 This function combines formulas to create calculated metrics in Adobe Analytics
 }
 \details{
-See more information \href{https://experienceleague.adobe.com/docs/analytics/components/calculated-metrics/calcmetric-workflow/cm-build-metrics.html?lang=en}{here}
+See more information \href{https://experienceleague.adobe.com/en/docs/analytics/components/calculated-metrics/calcmetric-workflow/cm-build-metrics}{here}
 }

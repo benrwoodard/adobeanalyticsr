@@ -30,7 +30,7 @@
 #' available `company_id` values.
 #'
 #' @details
-#' See more information [here](https://experienceleague.adobe.com/docs/analytics/components/segmentation/segmentation-workflow/seg-build.html)
+#' See more information [here](https://experienceleague.adobe.com/en/docs/analytics/components/segmentation/segmentation-workflow/seg-build)
 #'
 #' @return If the "create_seg" argument is set to FALSE a list object definition
 #' will be returned. If the "create_seg" argument is set to TRUE and the segment

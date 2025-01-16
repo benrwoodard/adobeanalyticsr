@@ -30,7 +30,7 @@
 #' available `company_id` values.
 #'
 #' @details
-#' See more information [here](https://experienceleague.adobe.com/docs/analytics/components/calculated-metrics/calcmetric-workflow/cm-build-metrics.html?lang=en)
+#' See more information [here](https://experienceleague.adobe.com/en/docs/analytics/components/calculated-metrics/calcmetric-workflow/cm-build-metrics)
 #'
 #' @return If the "create_cm" argument is set to FALSE a list object definition
 #' will be returned. If the "create_cm" argument is set to TRUE and the calculated metric

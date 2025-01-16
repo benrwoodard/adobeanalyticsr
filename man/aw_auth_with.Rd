@@ -13,7 +13,7 @@ aw_auth_path(path)
 aw_auth_name(name)
 }
 \arguments{
-\item{type}{The authorization type: 'oauth' or 'jwt'}
+\item{type}{The authorization type: 'oauth', 's2s', or 'jwt'}
 
 \item{path}{The location for the cached authorization token. It should be a
 directory, rather than a filename. If this option is not set, the current

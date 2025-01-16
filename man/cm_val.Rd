@@ -40,5 +40,5 @@ A string confirming the calculated metric is valid or is not valid.
 This function checks if a calculated metric JSON string is valid
 }
 \details{
-See more information \href{https://experienceleague.adobe.com/docs/analytics/components/calculated-metrics/calcmetric-workflow/cm-build-metrics.html?lang=en}{here}
+See more information \href{https://experienceleague.adobe.com/en/docs/analytics/components/calculated-metrics/calcmetric-workflow/cm-build-metrics}{here}
 }

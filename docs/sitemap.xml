@@ -1,210 +1,53 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>/articles/getting-started.html</loc>
-  </url>
-  <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>/articles/working_with_calculated_metrics.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aa_anomaly_report.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aa_creds.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aa_freeform_report.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aa_get_calculatedmetrics.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aa_get_dimensions.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aa_get_metrics.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aa_get_reportsuites.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aa_get_segments.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aa_token.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aa_workspace_report.html</loc>
-  </url>
-  <url>
-    <loc>/reference/adobeanalyticsr-package.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aw_anomaly_report.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aw_auth.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aw_auth_with.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aw_creds.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aw_freeform_report.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aw_freeform_table.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aw_get_calculatedmetric_byid.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aw_get_calculatedmetrics.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aw_get_cm_functions.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aw_get_dimensions.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aw_get_metrics.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aw_get_project_config.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aw_get_projects.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aw_get_reportsuites.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aw_get_segments.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aw_get_tags.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aw_refresh_token.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aw_segment_table.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aw_token.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aw_workspace_report.html</loc>
-  </url>
-  <url>
-    <loc>/reference/cm_build.html</loc>
-  </url>
-  <url>
-    <loc>/reference/cm_copy.html</loc>
-  </url>
-  <url>
-    <loc>/reference/cm_delete.html</loc>
-  </url>
-  <url>
-    <loc>/reference/cm_formula.html</loc>
-  </url>
-  <url>
-    <loc>/reference/cm_function.html</loc>
-  </url>
-  <url>
-    <loc>/reference/cm_update.html</loc>
-  </url>
-  <url>
-    <loc>/reference/cm_val.html</loc>
-  </url>
-  <url>
-    <loc>/reference/cm_validate.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_cm_functions.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_me.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_usage.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_usage_logs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_users.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/proj_build.html</loc>
-  </url>
-  <url>
-    <loc>/reference/proj_update.html</loc>
-  </url>
-  <url>
-    <loc>/reference/retrieve_aw_token.html</loc>
-  </url>
-  <url>
-    <loc>/reference/seg_build.html</loc>
-  </url>
-  <url>
-    <loc>/reference/seg_con.html</loc>
-  </url>
-  <url>
-    <loc>/reference/seg_copy.html</loc>
-  </url>
-  <url>
-    <loc>/reference/seg_delete.html</loc>
-  </url>
-  <url>
-    <loc>/reference/seg_rule.html</loc>
-  </url>
-  <url>
-    <loc>/reference/seg_seq.html</loc>
-  </url>
-  <url>
-    <loc>/reference/seg_then.html</loc>
-  </url>
-  <url>
-    <loc>/reference/seg_update.html</loc>
-  </url>
-  <url>
-    <loc>/reference/seg_val.html</loc>
-  </url>
-  <url>
-    <loc>/reference/seg_verbs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/tags_add.html</loc>
-  </url>
-  <url>
-    <loc>/token_result.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/LICENSE-text.html</loc></url>
+<url><loc>/LICENSE.html</loc></url>
+<url><loc>/articles/getting-started.html</loc></url>
+<url><loc>/articles/index.html</loc></url>
+<url><loc>/articles/working_with_calculated_metrics.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/news/index.html</loc></url>
+<url><loc>/reference/aw_anomaly_report.html</loc></url>
+<url><loc>/reference/aw_auth.html</loc></url>
+<url><loc>/reference/aw_auth_with.html</loc></url>
+<url><loc>/reference/aw_freeform_table.html</loc></url>
+<url><loc>/reference/aw_get_calculatedmetrics.html</loc></url>
+<url><loc>/reference/aw_get_dimensions.html</loc></url>
+<url><loc>/reference/aw_get_metrics.html</loc></url>
+<url><loc>/reference/aw_get_project_config.html</loc></url>
+<url><loc>/reference/aw_get_projects.html</loc></url>
+<url><loc>/reference/aw_get_reportsuites.html</loc></url>
+<url><loc>/reference/aw_get_segments.html</loc></url>
+<url><loc>/reference/aw_get_tags.html</loc></url>
+<url><loc>/reference/aw_segment_table.html</loc></url>
+<url><loc>/reference/aw_token.html</loc></url>
+<url><loc>/reference/aw_workspace_report.html</loc></url>
+<url><loc>/reference/cm_build.html</loc></url>
+<url><loc>/reference/cm_copy.html</loc></url>
+<url><loc>/reference/cm_delete.html</loc></url>
+<url><loc>/reference/cm_formula.html</loc></url>
+<url><loc>/reference/cm_function.html</loc></url>
+<url><loc>/reference/cm_update.html</loc></url>
+<url><loc>/reference/cm_val.html</loc></url>
+<url><loc>/reference/get_cm_functions.html</loc></url>
+<url><loc>/reference/get_me.html</loc></url>
+<url><loc>/reference/get_usage_logs.html</loc></url>
+<url><loc>/reference/get_users.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/proj_build.html</loc></url>
+<url><loc>/reference/proj_update.html</loc></url>
+<url><loc>/reference/retrieve_aw_token.html</loc></url>
+<url><loc>/reference/seg_build.html</loc></url>
+<url><loc>/reference/seg_con.html</loc></url>
+<url><loc>/reference/seg_copy.html</loc></url>
+<url><loc>/reference/seg_delete.html</loc></url>
+<url><loc>/reference/seg_rule.html</loc></url>
+<url><loc>/reference/seg_seq.html</loc></url>
+<url><loc>/reference/seg_then.html</loc></url>
+<url><loc>/reference/seg_update.html</loc></url>
+<url><loc>/reference/seg_val.html</loc></url>
+<url><loc>/reference/seg_verbs.html</loc></url>
+<url><loc>/reference/tags_add.html</loc></url>
 </urlset>
+

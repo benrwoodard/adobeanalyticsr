@@ -13,10 +13,11 @@
 #' @import assertthat httr
 get_me <- function(req_path = 'discovery/me') {
     assertthat::assert_that(
-        is.string(req_path)
+        assertthat::is.string(req_path)
     )
 
     env_vars <- get_env_vars()
+
     token_config <- get_token_config(client_id = env_vars$client_id,
                                      client_secret = env_vars$client_secret)
 
