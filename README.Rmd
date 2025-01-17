@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-<img src="man/figures/logo.png" align="right" width = "200"/>
+<!-- <img src="man/figures/logo.png" align="right" width = "200"/> -->
 
 ## R Client for Adobe Analytics API 2.0
 
@@ -71,7 +71,7 @@ There are four setup steps required to start accessing your Adobe Analytics data
 
   1. Create an Adobe Console API Project
   2. Create and add the OAuth or S2S arguments to your `.Renviron` file.
-  3. Set the type of authorization being used by calling `aw_auth_with(type = "")`. The `type` value should be **S2S** or **oauth**
+  3. Set the type of authorization being used by calling `aw_auth_with(type = "")`. The `type` value should be **s2s** or **oauth**
   4. Get your authorization token using `aw_auth()`. Once the authorization type has been set (the previous step), this will look for `.Renviron` variables and complete the authorization.
   5. Get your `company_id` by using the function `get_me()`.
 

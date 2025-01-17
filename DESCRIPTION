@@ -49,4 +49,4 @@ Roxygen: list(markdown = TRUE)
 RdMacros: lifecycle
 VignetteBuilder: knitr
 BugReports: https://github.com/benrwoodard/adobeanalyticsr/issues
-URL: https://github.com/benrwoodard/adobeanalyticsr
+URL: https://adobeanalyticsr.com
