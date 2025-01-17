@@ -68,13 +68,17 @@ reference:
       - aw_get_tags
       - tags_add
 
-development:
-  mode: auto
+url: https://adobeanalyticsr.com
 
 authors:
   Ben Woodard:
     href: http://github.com/benrwoodard
 
+home:
+  sidebar:
+    structure: [dev, links, license, authors]
+
 template:
   params:
     ganalytics: "G-06XDF7JD6E"
+  bootstrap: 5

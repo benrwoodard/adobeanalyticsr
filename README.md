@@ -11,8 +11,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 Coffee”](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/benrwoodard)
 
 <!-- badges: end -->
-
-<img src="man/figures/logo.png" align="right" width = "200"/>
+<!-- <img src="man/figures/logo.png" align="right" width = "200"/> -->
 
 ## R Client for Adobe Analytics API 2.0
 
