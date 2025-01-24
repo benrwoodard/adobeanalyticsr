@@ -1,6 +1,8 @@
 ---
 title: "Token Result"
-format: html
+format: 
+  html:
+    code-overflow: wrap
 editor: source
 include-after-body:
   text: |
@@ -13,5 +15,4 @@ include-after-body:
 ---
 
 ## Copy and paste the token into your console
-
-<span id="code"></span>
+<code><span id="code"></span></code>
