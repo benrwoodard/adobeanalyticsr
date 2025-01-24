@@ -1,0 +1,17 @@
+---
+title: "Token Result"
+format: html
+editor: source
+include-after-body:
+  text: |
+    <script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const code = urlParams.get('code');
+    document.getElementById("code").innerHTML = code;
+    </script
+---
+
+## Copy and paste the token into your console
+
+<span id="code"></span>
