@@ -17,7 +17,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends:
-    R (>= 3.2.0)
+    R (>= 4.1.0)
 Imports:
     assertthat (>= 0.2.0),
     jsonlite (>= 1.5),
