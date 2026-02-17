@@ -3,6 +3,16 @@
 test_that("get_me() returns company information with mocked API", {
   skip_if_not_installed("httptest2")
 
+  # Skip if fixtures haven't been recorded yet
+  fixture_dir <- testthat::test_path("get_me")
+  if (!dir.exists(fixture_dir)) {
+    skip(paste(
+      "Fixtures not recorded yet.",
+      "Run tests/testthat/record_fixtures.R with credentials to record.",
+      "See tests/testthat/RECORDING_GUIDE.md for details."
+    ))
+  }
+
   # Use httptest2 to mock the API response
   httptest2::with_mock_dir("get_me", {
     # Set mock credentials
@@ -37,6 +47,12 @@ test_that("get_me() returns company information with mocked API", {
 
 test_that("get_me() handles API errors gracefully", {
   skip_if_not_installed("httptest2")
+
+  # Skip if error fixtures haven't been recorded yet
+  fixture_dir <- testthat::test_path("get_me_error")
+  if (!dir.exists(fixture_dir)) {
+    skip("Error fixtures not recorded yet. This test is optional.")
+  }
 
   httptest2::with_mock_dir("get_me_error", {
     withr::local_envvar(mock_credentials())
