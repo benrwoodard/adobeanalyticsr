@@ -216,13 +216,12 @@ token_type <- function(token) {
 
 #' Get token configuration for requests
 #'
-#' Returns a configuration for `httr::GET` for the correct token type.
+#' Returns authorization headers for the correct token type.
 #'
 #' @param client_id Client ID
 #' @param client_secret Client secret
 #'
-#' @return Config objects that can be passed to `httr::GET` or similar
-#' functions (e.g. `httr::RETRY`)
+#' @return Named list of headers that can be passed to `httr2::req_headers()`
 #'
 #' @noRd
 get_token_config <- function(client_id,
@@ -232,9 +231,9 @@ get_token_config <- function(client_id,
     type <- token_type(token)
 
     switch(type,
-        oauth = httr::config(token = token),
-        jwt = httr::add_headers(Authorization = paste("Bearer", content(token$token)$access_token)),
-        s2s = httr::add_headers(Authorization = paste("Bearer", token$token$access)),
+        oauth = list(Authorization = paste("Bearer", token$credentials$access_token)),
+        jwt = list(Authorization = paste("Bearer", httr2::resp_body_json(token$token)$access_token)),
+        s2s = list(Authorization = paste("Bearer", token$token$access)),
         stop("Unknown token type")
     )
 }
@@ -316,8 +315,9 @@ auth_jwt <- function(file = Sys.getenv("AW_AUTH_FILE"),
 
 
   # If successful
+  resp_content <- httr2::resp_body_json(resp)
   message("Successfully authenticated with JWT: access token valid until ",
-          resp$date + httr::content(resp)$expires_in / 1000)
+          httr2::resp_date(resp) + resp_content$expires_in / 1000)
 
   .adobeanalytics$token <- AdobeJwtToken$new(resp, secrets)
   .adobeanalytics$client_id <- secrets$API_KEY
@@ -366,15 +366,19 @@ auth_jwt_gen <- function(secrets,
                                tech_id = secrets$TECHNICAL_ACCOUNT_ID)
 
 
-    token <- httr::POST(url="https://ims-na1.adobelogin.com/ims/exchange/jwt",
-                        body = list(
-                            client_id = secrets$API_KEY,
-                            client_secret = secrets$CLIENT_SECRET,
-                            jwt_token = jwt_token
-                        ),
-                        encode = 'form')
+    token <- httr2::request("https://ims-na1.adobelogin.com/ims/exchange/jwt") %>%
+        httr2::req_method("POST") %>%
+        httr2::req_body_form(
+            client_id = secrets$API_KEY,
+            client_secret = secrets$CLIENT_SECRET,
+            jwt_token = jwt_token
+        ) %>%
+        httr2::req_error(is_error = function(resp) FALSE) %>%
+        httr2::req_perform()
 
-    httr::stop_for_status(token)
+    if (httr2::resp_is_error(token)) {
+        stop("JWT authentication failed: ", httr2::resp_status_desc(token))
+    }
     token
 }
 
@@ -452,7 +456,7 @@ AdobeJwtToken <- R6::R6Class("AdobeJwtToken", list(
         self
     },
     validate = function() {
-        self$token$date + httr::content(self$token)$expires_in / 1000 > Sys.time() - 1200
+        httr2::resp_date(self$token) + httr2::resp_body_json(self$token)$expires_in / 1000 > Sys.time() - 1200
     }
 ))
 

@@ -1,3 +1,12 @@
+# adobeanalyticsr 0.6.0
+
+* **Breaking internal change**: Migrated from `httr` to `httr2` for all API calls
+  - All HTTP requests now use `httr2` instead of `httr`
+  - Improved retry logic and error handling
+  - Better support for modern HTTP features
+  - OAuth token generation still uses `httr` for backwards compatibility
+  - No changes to public API - all existing code should continue to work
+
 # adobeanalyticsr 0.5.0
 
 * added OAuth Server-to-Server (S2S) authentication support

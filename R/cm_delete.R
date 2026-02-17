@@ -37,65 +37,89 @@ cm_delete <- function(id = NULL,
              title= "Are you sure you want to delete this Calculated Metric") == "1") {
 
       env_vars <- get_env_vars()
-      token_config <- get_token_config(client_id = env_vars$client_id,
-                                       client_secret = env_vars$client_secret)
-
-      if (debug) {
-        debug_call <- httr::verbose(data_out = TRUE, data_in = TRUE, info = TRUE)
-      } else {
-        debug_call <- NULL
-      }
+      token_headers <- get_token_config(client_id = env_vars$client_id,
+                                        client_secret = env_vars$client_secret)
 
       req_path <- glue::glue('calculatedmetrics/{id}?locale={locale}')
 
       request_url <- sprintf("https://analytics.adobe.io/api/%s/%s",
                              company_id, req_path)
 
-      req <- httr::RETRY(verb = 'DELETE',
-                         url = request_url,
-                         encode = "json",
-                         token_config,
-                         debug_call,
-                         httr::add_headers(
-                           `x-api-key` = env_vars$client_id,
-                           `x-proxy-global-company-id` = company_id
-                         ))
+      # Build the request
+      req <- httr2::request(request_url) %>%
+          httr2::req_method("DELETE")
 
-      handle_api_errors(resp = req, body = body)
+      # Add headers
+      headers <- c(
+          token_headers,
+          `x-api-key` = env_vars$client_id,
+          `x-proxy-global-company-id` = company_id
+      )
+      req <- httr2::req_headers(req, !!!headers)
+
+      # Add retry logic
+      req <- httr2::req_retry(req, max_tries = 3)
+
+      # Add debug/verbose if requested
+      if (debug) {
+          req <- httr2::req_verbose(req)
+      }
+
+      # Disable automatic error handling to use custom error handling
+      req <- httr2::req_error(req, is_error = function(resp) FALSE)
+
+      # Perform request
+      resp <- httr2::req_perform(req)
+
+      handle_api_errors(resp = resp, body = NULL)
       # As a fall-through, for errors that fall through handle_api_errors
-      httr::stop_for_status(req)
-      message(glue::glue('{httr::content(req)$result}: {id} has been deleted'))
+      if (httr2::resp_is_error(resp)) {
+          stop("HTTP ", httr2::resp_status(resp), ": ", httr2::resp_status_desc(resp))
+      }
+      message(glue::glue('{httr2::resp_body_json(resp)$result}: {id} has been deleted'))
     } else { message("Ok, it will not be deleted.")}
   } else {
     env_vars <- get_env_vars()
-    token_config <- get_token_config(client_id = env_vars$client_id,
-                                     client_secret = env_vars$client_secret)
-
-    if (debug) {
-      debug_call <- httr::verbose(data_out = TRUE, data_in = TRUE, info = TRUE)
-    } else {
-      debug_call <- NULL
-    }
+    token_headers <- get_token_config(client_id = env_vars$client_id,
+                                      client_secret = env_vars$client_secret)
 
     req_path <- glue::glue('calculatedmetrics/{id}?locale={locale}')
 
     request_url <- sprintf("https://analytics.adobe.io/api/%s/%s",
                            company_id, req_path)
 
-    req <- httr::RETRY(verb = 'DELETE',
-                       url = request_url,
-                       encode = "json",
-                       token_config,
-                       debug_call,
-                       httr::add_headers(
-                         `x-api-key` = env_vars$client_id,
-                         `x-proxy-global-company-id` = company_id
-                       ))
+    # Build the request
+    req <- httr2::request(request_url) %>%
+        httr2::req_method("DELETE")
 
-    handle_api_errors(resp = req, body = body)
+    # Add headers
+    headers <- c(
+        token_headers,
+        `x-api-key` = env_vars$client_id,
+        `x-proxy-global-company-id` = company_id
+    )
+    req <- httr2::req_headers(req, !!!headers)
+
+    # Add retry logic
+    req <- httr2::req_retry(req, max_tries = 3)
+
+    # Add debug/verbose if requested
+    if (debug) {
+        req <- httr2::req_verbose(req)
+    }
+
+    # Disable automatic error handling to use custom error handling
+    req <- httr2::req_error(req, is_error = function(resp) FALSE)
+
+    # Perform request
+    resp <- httr2::req_perform(req)
+
+    handle_api_errors(resp = resp, body = NULL)
     # As a fall-through, for errors that fall through handle_api_errors
-    httr::stop_for_status(req)
-    message(glue::glue('{httr::content(req)$result}: {id} has been deleted'))
+    if (httr2::resp_is_error(resp)) {
+        stop("HTTP ", httr2::resp_status(resp), ": ", httr2::resp_status_desc(resp))
+    }
+    message(glue::glue('{httr2::resp_body_json(resp)$result}: {id} has been deleted'))
   }
 
 }

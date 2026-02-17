@@ -20,7 +20,7 @@
 #'             company_id = "blah")
 #'
 #' }
-#' @import assertthat httr purrr
+#' @import assertthat purrr
 #'
 aw_put_data <- function(req_path,
                         body = NULL,
@@ -36,39 +36,53 @@ aw_put_data <- function(req_path,
     )
 
     env_vars <- get_env_vars()
-    token_config <- get_token_config(client_id = env_vars$client_id,
-                                     client_secret = env_vars$client_secret)
+    token_headers <- get_token_config(client_id = env_vars$client_id,
+                                      client_secret = env_vars$client_secret)
 
     request_url <- sprintf("https://analytics.adobe.io/api/%s/%s",
                            company_id, req_path)
 
-    debug_call <- NULL
+    # Build the request
+    req <- httr2::request(request_url) %>%
+        httr2::req_method("PUT")
 
+    # Add headers
+    headers <- c(
+        token_headers,
+        `Content-Type` = content_type,
+        `x-api-key` = env_vars$client_id,
+        `x-proxy-global-company-id` = company_id
+    )
+    req <- httr2::req_headers(req, !!!headers)
+
+    # Add body
+    req <- httr2::req_body_json(req, body)
+
+    # Add retry logic
+    req <- httr2::req_retry(req, max_tries = 3)
+
+    # Add debug/verbose if requested
     if (debug) {
-        debug_call <- httr::verbose(data_out = TRUE, data_in = TRUE, info = TRUE)
+        req <- httr2::req_verbose(req)
     }
 
-    req <- httr::RETRY("PUT",
-                       url = request_url,
-                       body = body,
-                       encode = "json",
-                       token_config,
-                       `Content-Type` = content_type,
-                       debug_call,
-                       httr::add_headers(
-                           `x-api-key` = env_vars$client_id,
-                           `x-proxy-global-company-id` = company_id
-                       ))
+    # Disable automatic error handling to use custom error handling
+    req <- httr2::req_error(req, is_error = function(resp) FALSE)
 
-    stop_for_status(req)
+    # Perform request
+    resp <- httr2::req_perform(req)
 
-    req_errors <- content(req)$columns$columnErrors[[1]]
+    # Check for errors
+    if (httr2::resp_is_error(resp) && httr2::resp_status(resp) != 206) {
+        stop("HTTP ", httr2::resp_status(resp), ": ", httr2::resp_status_desc(resp))
+    }
 
-    if(status_code(req) == 206  & length(req_errors) != 0) {
+    req_errors <- httr2::resp_body_json(resp)$columns$columnErrors[[1]]
+
+    if(httr2::resp_status(resp) == 206  & length(req_errors) != 0) {
         stop(paste0('The error code is ', req_errors$errorCode, ' - ', req_errors$errorDescription))
-    } else if(status_code(req) == 206) {
+    } else if(httr2::resp_status(resp) == 206) {
         stop(paste0('Please check the metrics your requested. A 206 error was returned.'))
     }
-   req
-    # httr::content(req, as = "text",encoding = "UTF-8")
+   resp
 }
