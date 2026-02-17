@@ -5,19 +5,21 @@
 #' **Note:** `aw_auth()` is the primary function used for authorization. `auth_oauth()`
 #' and `auth_s2s()` should typically not be called directly.
 #'
-#' @param type Either 's2s' or 'oauth'. This can be set explicitly, but a best practice is
-#' to run `aw_auth_with()` to set the authorization type as an environment variable before
-#' running `aw_auth()`
+#' **IMPORTANT:** JWT authentication is **DEPRECATED** as of June 30, 2025 and will stop
+#' working by March 1, 2026. Use 's2s' (OAuth Server-to-Server) authentication instead.
+#'
+#' @param type Either 's2s' or 'oauth' (jwt is deprecated). This can be set explicitly,
+#' but a best practice is to run `aw_auth_with()` to set the authorization type as an
+#' environment variable before running `aw_auth()`
 #' @param ... Additional arguments passed to auth functions.
 #' @param client_id The client ID, defined by a global variable or manually defined
 #' @param client_secret The client secret, defined by a global variable or manually defined
-#' @param file A JSON file containing service account credentials required for JWT
-#' authentication. This file can be downloaded directly from the Adobe Console,
-#' and should minimally have the fields `API_KEY`, `CLIENT_SECRET`, `ORG_ID`,
-#' and `TECHNICAL_ACCOUNT_ID`.
-#' @param private_key Filename of the private key for JWT authentication.
-#' @param jwt_token _(Optional)_ A custom, encoded, signed JWT claim. If used,
-#'   `client_id` and `client_secret` are still required.
+#' @param file _(DEPRECATED - JWT only)_ A JSON file containing service account credentials
+#' required for JWT authentication. **JWT is deprecated - use S2S authentication instead.**
+#' @param private_key _(DEPRECATED - JWT only)_ Filename of the private key for JWT
+#' authentication. **JWT is deprecated - use S2S authentication instead.**
+#' @param jwt_token _(DEPRECATED - JWT only)_ A custom, encoded, signed JWT claim.
+#' **JWT is deprecated - use S2S authentication instead.**
 #' @param s2s_token _(Optional)_ A custom, encoded, S2S authentication token.
 #' @param use_oob if `FALSE`, use a local webserver for the OAuth dance.
 #'   Otherwise, provide a URL to the user and prompt for a validation code.
@@ -57,7 +59,10 @@ aw_auth <- function(type = aw_auth_with(), ...) {
 #' `aw_auth_with` sets the type of authorization for the session. This is used
 #' as the default by `aw_auth()` when no specific option is given.
 #'
-#' @param type The authorization type: 'oauth', 's2s', or 'jwt'
+#' **IMPORTANT:** JWT authentication is **DEPRECATED** and will stop working by
+#' March 1, 2026. Use 's2s' instead.
+#'
+#' @param type The authorization type: 'oauth', 's2s', or 'jwt' (deprecated)
 #' @param path The location for the cached authorization token. It should be a
 #' directory, rather than a filename. If this option is not set, the current
 #' working directory is used instead. If the location does not exist, it will
@@ -300,6 +305,25 @@ auth_jwt <- function(file = Sys.getenv("AW_AUTH_FILE"),
                      private_key = Sys.getenv("AW_PRIVATE_KEY"),
                      jwt_token = NULL,
                      ...) {
+
+  # JWT credentials are deprecated and no longer supported
+  stop(
+    "JWT authentication is DEPRECATED and no longer supported by Adobe.\n\n",
+    "JWT credentials reached end of life on June 30, 2025 and will stop working\n",
+    "after certificates expire or March 1, 2026 (whichever is earlier).\n\n",
+    "ACTION REQUIRED: Migrate to OAuth Server-to-Server (S2S) authentication.\n\n",
+    "To migrate:\n",
+    "1. Create new OAuth Server-to-Server credentials in Adobe Developer Console:\n",
+    "   https://developer.adobe.com/console/\n\n",
+    "2. Update your authentication to use S2S:\n",
+    "   aw_auth_with('s2s')\n",
+    "   aw_auth()\n\n",
+    "3. See migration guide:\n",
+    "   https://developer.adobe.com/developer-console/docs/guides/authentication/ServerToServerAuthentication/migration\n\n",
+    "For help, see: ?aw_auth or ?auth_s2s",
+    call. = FALSE
+  )
+
   if (file == "") {
     if (Sys.getenv("AW_TECHNICAL_ID") != "" | Sys.getenv("AW_ORGANIZATION_ID") != "") {
       stop("Using separate environment variables for JWT auth is deprecated.\nUse file-based authentication instead. See `?aw_auth`.")

@@ -1,3 +1,10 @@
+breaking/JWT authentication is now DEPRECATED and blocked
+  * JWT credentials reached end of life on June 30, 2025
+  * JWT will stop working by March 1, 2026
+  * auth_jwt() now throws an informative error with migration instructions
+  * Users must migrate to S2S (OAuth Server-to-Server) authentication
+  * See migration guide: https://developer.adobe.com/developer-console/docs/guides/authentication/ServerToServerAuthentication/migration
+
 feature/migrated from httr to httr2 for all API calls
   * All HTTP requests now use httr2 instead of httr for improved performance and maintainability
   * Added automatic retry logic with httr2::req_retry()
