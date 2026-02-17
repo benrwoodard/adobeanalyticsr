@@ -43,7 +43,8 @@ Imports:
 Suggests:
     knitr,
     testthat (>= 3.0.0),
-    rmarkdown
+    rmarkdown,
+    httptest2
 RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
 RdMacros: lifecycle
