@@ -7,23 +7,49 @@ library(httptest2)
 
 cat("🎬 Recording fixtures for all endpoints...\n\n")
 
-# Check credentials
-has_creds <- !identical(Sys.getenv("AW_CLIENT_ID"), "") &&
-             !identical(Sys.getenv("AW_CLIENT_SECRET"), "") &&
-             !identical(Sys.getenv("AW_COMPANY_ID"), "")
+# Check credentials and detect auth method
+check_credentials <- function() {
+  has_oauth <- !identical(Sys.getenv("AW_CLIENT_ID"), "") &&
+               !identical(Sys.getenv("AW_CLIENT_SECRET"), "")
 
-if (!has_creds) {
-  stop("❌ Credentials not found! Set AW_CLIENT_ID, AW_CLIENT_SECRET, AW_COMPANY_ID")
+  has_s2s <- !identical(Sys.getenv("AW_AUTH_FILE"), "") &&
+             file.exists(Sys.getenv("AW_AUTH_FILE"))
+
+  has_company <- !identical(Sys.getenv("AW_COMPANY_ID"), "")
+
+  if (!has_company) {
+    stop("❌ AW_COMPANY_ID not set!")
+  }
+
+  if (!has_oauth && !has_s2s) {
+    stop("❌ No credentials found! Set OAuth (AW_CLIENT_ID, AW_CLIENT_SECRET) or S2S (AW_AUTH_FILE)")
+  }
+
+  # Prefer OAuth if both available
+  if (has_oauth) {
+    cat("✅ Using OAuth authentication\n")
+    return("oauth")
+  } else {
+    cat("✅ Using S2S authentication\n")
+    return("s2s")
+  }
 }
 
+auth_method <- check_credentials()
 company_id <- Sys.getenv("AW_COMPANY_ID")
-cat("✅ Using Company ID:", company_id, "\n\n")
+cat("   Company ID:", company_id, "\n\n")
 
 # Authenticate
 cat("🔐 Authenticating...\n")
-aw_auth_with('s2s')
+aw_auth_with(auth_method)
+
+if (auth_method == "oauth") {
+  cat("📱 OAuth Flow: A browser window will open...\n")
+  cat("   Please sign in and authorize the application.\n\n")
+}
+
 aw_auth()
-cat("✅ Authenticated\n\n")
+cat("✅ Authenticated with", toupper(auth_method), "\n\n")
 
 # Change to test directory
 if (!grepl("tests/testthat$", getwd())) {

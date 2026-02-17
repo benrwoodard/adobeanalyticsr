@@ -2,28 +2,64 @@
 
 ## Prerequisites
 
-You need **real Adobe Analytics credentials** to record fixtures. Set these up first:
+You need **real Adobe Analytics credentials** to record fixtures. The package supports both OAuth and S2S authentication.
+
+### Option A: OAuth Authentication (Interactive - Recommended for Development)
+
+OAuth requires interactive browser login and is best for local development.
 
 ```r
-# Option 1: Use .Renviron file (recommended)
+# Edit .Renviron file
 usethis::edit_r_environ()
 
 # Add these lines:
 AW_CLIENT_ID=your_client_id_here
 AW_CLIENT_SECRET=your_client_secret_here
 AW_COMPANY_ID=your_company_id_here
-AW_AUTH_FILE=path/to/your/auth.json  # For S2S auth
 
 # Save and restart R
+.rs.restartR()
 ```
 
+**Note:** OAuth will open a browser for you to sign in. After authorization, a token is cached locally.
+
+### Option B: S2S (Server-to-Server) Authentication (Non-Interactive)
+
+S2S uses a JSON credential file and doesn't require browser interaction.
+
 ```r
-# Option 2: Set in current session
-Sys.setenv(
-  AW_CLIENT_ID = "your_client_id",
-  AW_CLIENT_SECRET = "your_client_secret",
-  AW_COMPANY_ID = "your_company_id"
-)
+# Edit .Renviron file
+usethis::edit_r_environ()
+
+# Add these lines:
+AW_AUTH_FILE=/full/path/to/your/credentials.json
+AW_COMPANY_ID=your_company_id_here
+
+# Save and restart R
+.rs.restartR()
+```
+
+**Note:** S2S JSON file should contain `CLIENT_ID`, `CLIENT_SECRETS`, and `SCOPES`.
+
+### Checking Your Setup
+
+```r
+# Verify credentials are set
+Sys.getenv("AW_CLIENT_ID")        # For OAuth
+Sys.getenv("AW_CLIENT_SECRET")    # For OAuth
+Sys.getenv("AW_AUTH_FILE")        # For S2S
+Sys.getenv("AW_COMPANY_ID")       # Required for both
+
+# Test authentication
+library(adobeanalyticsr)
+
+# For OAuth:
+aw_auth_with('oauth')
+aw_auth()  # Browser will open
+
+# For S2S:
+aw_auth_with('s2s')
+aw_auth()  # No browser needed
 ```
 
 ## Recording Fixtures

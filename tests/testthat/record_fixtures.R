@@ -16,44 +16,63 @@ library(httptest2)
 
 cat("🎬 Starting fixture recording...\n\n")
 
-# Check credentials
+# Check credentials and detect auth method
 check_credentials <- function() {
-  has_creds <- !identical(Sys.getenv("AW_CLIENT_ID"), "") &&
-               !identical(Sys.getenv("AW_CLIENT_SECRET"), "") &&
-               !identical(Sys.getenv("AW_COMPANY_ID"), "")
+  has_oauth <- !identical(Sys.getenv("AW_CLIENT_ID"), "") &&
+               !identical(Sys.getenv("AW_CLIENT_SECRET"), "")
 
-  if (!has_creds) {
+  has_s2s <- !identical(Sys.getenv("AW_AUTH_FILE"), "") &&
+             file.exists(Sys.getenv("AW_AUTH_FILE"))
+
+  has_company <- !identical(Sys.getenv("AW_COMPANY_ID"), "")
+
+  if (!has_company) {
     stop(
-      "❌ Credentials not found!\n\n",
-      "Please set these environment variables:\n",
+      "❌ AW_COMPANY_ID not set!\n\n",
+      "Please set AW_COMPANY_ID in .Renviron"
+    )
+  }
+
+  if (!has_oauth && !has_s2s) {
+    stop(
+      "❌ No credentials found!\n\n",
+      "For OAuth, set:\n",
       "  - AW_CLIENT_ID\n",
       "  - AW_CLIENT_SECRET\n",
-      "  - AW_COMPANY_ID\n",
-      "  - AW_AUTH_FILE (if using S2S)\n\n",
+      "  - AW_COMPANY_ID\n\n",
+      "For S2S, set:\n",
+      "  - AW_AUTH_FILE (path to JSON file)\n",
+      "  - AW_COMPANY_ID\n\n",
       "See RECORDING_GUIDE.md for details."
     )
   }
 
-  cat("✅ Credentials found\n")
-  cat("   Client ID:", substr(Sys.getenv("AW_CLIENT_ID"), 1, 20), "...\n")
-  cat("   Company ID:", Sys.getenv("AW_COMPANY_ID"), "\n\n")
+  if (has_oauth) {
+    cat("✅ OAuth credentials found\n")
+    cat("   Client ID:", substr(Sys.getenv("AW_CLIENT_ID"), 1, 20), "...\n")
+    return("oauth")
+  } else if (has_s2s) {
+    cat("✅ S2S credentials found\n")
+    cat("   Auth File:", Sys.getenv("AW_AUTH_FILE"), "\n")
+    return("s2s")
+  }
 }
 
-check_credentials()
+auth_method <- check_credentials()
+cat("   Company ID:", Sys.getenv("AW_COMPANY_ID"), "\n")
+cat("   Auth Method:", toupper(auth_method), "\n\n")
 
 # Authenticate
 cat("🔐 Authenticating with Adobe Analytics...\n")
-tryCatch({
-  aw_auth_with('s2s')
-  aw_auth()
-  cat("✅ Authentication successful\n\n")
-}, error = function(e) {
-  # Try OAuth if S2S fails
-  cat("⚠️  S2S auth failed, trying OAuth...\n")
-  aw_auth_with('oauth')
-  aw_auth()
-  cat("✅ OAuth authentication successful\n\n")
-})
+aw_auth_with(auth_method)
+
+if (auth_method == "oauth") {
+  cat("📱 OAuth Flow: A browser window will open for authentication...\n")
+  cat("   Please sign in and authorize the application.\n")
+}
+
+aw_auth()
+cat("✅ Authentication successful\n\n")
 
 # Set working directory to tests/testthat if not already there
 if (!grepl("tests/testthat$", getwd())) {
