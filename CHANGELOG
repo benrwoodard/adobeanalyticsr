@@ -1,3 +1,13 @@
+feature/migrated from httr to httr2 for all API calls
+  * All HTTP requests now use httr2 instead of httr for improved performance and maintainability
+  * Added automatic retry logic with httr2::req_retry()
+  * Improved error handling with httr2::req_error()
+  * Updated all core API functions: aw_call_api, aw_put_data, get_me
+  * Updated endpoint functions: seg_delete, cm_delete, aw_workspace_report, tags_add
+  * JWT authentication migrated to httr2
+  * OAuth token generation continues to use httr for backwards compatibility
+  * No breaking changes - all existing code continues to work
+
 feature/added calculated metrics management functions
   * get_cm_functions
   * cm_function

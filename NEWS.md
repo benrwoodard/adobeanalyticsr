@@ -1,6 +1,6 @@
-# adobeanalyticsr 0.6.0
+# adobeanalyticsr 0.5.2
 
-* **Breaking internal change**: Migrated from `httr` to `httr2` for all API calls
+* **Internal change**: Migrated from `httr` to `httr2` for all API calls
   - All HTTP requests now use `httr2` instead of `httr`
   - Improved retry logic and error handling
   - Better support for modern HTTP features
