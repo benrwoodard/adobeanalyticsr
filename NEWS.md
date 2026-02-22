@@ -1,3 +1,7 @@
+# adobeanalyticsr 0.5.1
+
+* added global for "id" to fix dependency on defunct dplyr function
+
 # adobeanalyticsr 0.5.0
 
 * added OAuth Server-to-Server (S2S) authentication support
