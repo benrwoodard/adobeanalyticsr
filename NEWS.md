@@ -13,6 +13,10 @@
   - Better support for modern HTTP features
   - OAuth token generation still uses `httr` for backwards compatibility
   - No changes to public API - all existing code should continue to work
+  
+# adobeanalyticsr 0.5.1
+
+* added global for "id" to fix dependency on defunct dplyr function
 
 # adobeanalyticsr 0.5.0
 
