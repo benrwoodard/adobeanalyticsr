@@ -126,15 +126,14 @@ get you setup on either of the different authorizations:
   3.  Add Default redirect URI
       <code><https://adobeanalyticsr.com/token_result.html></code>\*.
   4.  Add Redirect URI pattern
-      <code><a href="https://adobeanalyticsr\.com/token_result\.html"
-      class="uri">https://adobeanalyticsr\.com/token_result\.html</a></code>\*.
+      `https://adobeanalyticsr\.com/token_result\.html`\*.
 - *S2S*
   1.  Select the **Server-toServer** options and then click **Next**.
   2.  Click on the **Full CJA Access** button.
   3.  Click **Save configured API**.
 
 \* This is simply a helper site we’ve set up in order to make it easier
-to generate a token. The site does not store any information.
+to generate a token. The site does not store any token information.
 
 **Creating an Adobe Console API Project in under 60 seconds**
 <img src="man/figures/createoauthproject.gif" align="center" />
