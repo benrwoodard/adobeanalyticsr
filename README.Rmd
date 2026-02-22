@@ -27,7 +27,7 @@ knitr::opts_chunk$set(
 
 Connect to the Adobe Analytics API v2.0, which powers Analysis Workspace. The package was developed with the analyst in mind and will continue to be developed with the guiding principles of iterative, repeatable, timely analysis. New features are actively being developed, and we value your feedback and contribution to the process. Please submit bugs, questions, and enhancement requests as [issues in this Github repository](https://github.com/benrwoodard/adobeanalyticsr/issues).
 
-A special thanks to our company, [Further (formally Search Discovery)](https://www.gofurther.com/), for giving us the time, encouragement, and support to build out this package. There is no way this would have been possible without the opportunity to learn from and work with some of the most amazing people in the analytics industry.
+A special thanks to our former company, [Further (formally Search Discovery)](https://further.ai/), for giving us the time, encouragement, and support to build out this package. There is no way this would have been possible without the opportunity to learn from and work with some of the most amazing people in the analytics industry.
 
 ### A Note about 2.0 vs. 1.4
 
@@ -86,7 +86,7 @@ If you are using the S2S authorization then you will need an Adobe Console API
 project created for each organization you will be accessing.  The following 
 steps will get you setup on either of the different authorizations:
 
-  1. Navigate to the following URL: https://console.adobe.io/integrations.
+  1. Navigate to the following URL: https://developer.adobe.com/console/integrations.
   2. Click the **Create New Project** button and select **Empty Project**
   3. Click the **Add API** button.
   4. Select the Experience Cloud product icon and then choose **Adobe Analytics** and click **Next**.

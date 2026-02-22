@@ -11,6 +11,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 Coffee”](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/benrwoodard)
 
 <!-- badges: end -->
+
 <!-- <img src="man/figures/logo.png" align="right" width = "200"/> -->
 
 ## R Client for Adobe Analytics API 2.0
@@ -24,11 +25,11 @@ submit bugs, questions, and enhancement requests as [issues in this
 Github
 repository](https://github.com/benrwoodard/adobeanalyticsr/issues).
 
-A special thanks to our company, [Further (formally Search
-Discovery)](https://www.gofurther.com/), for giving us the time,
-encouragement, and support to build out this package. There is no way
-this would have been possible without the opportunity to learn from and
-work with some of the most amazing people in the analytics industry.
+A special thanks to our former company, [Further (formally Search
+Discovery)](https://further.ai/), for giving us the time, encouragement,
+and support to build out this package. There is no way this would have
+been possible without the opportunity to learn from and work with some
+of the most amazing people in the analytics industry.
 
 ### A Note about 2.0 vs. 1.4
 
@@ -92,7 +93,7 @@ in the following sections:
 1.  Create an Adobe Console API Project
 2.  Create and add the OAuth or S2S arguments to your `.Renviron` file.
 3.  Set the type of authorization being used by calling
-    `aw_auth_with(type = "")`. The `type` value should be **S2S** or
+    `aw_auth_with(type = "")`. The `type` value should be **s2s** or
     **oauth**
 4.  Get your authorization token using `aw_auth()`. Once the
     authorization type has been set (the previous step), this will look
@@ -112,7 +113,7 @@ for each organization you will be accessing. The following steps will
 get you setup on either of the different authorizations:
 
 1.  Navigate to the following URL:
-    <https://console.adobe.io/integrations>.
+    <https://developer.adobe.com/console/integrations>.
 2.  Click the **Create New Project** button and select **Empty Project**
 3.  Click the **Add API** button.
 4.  Select the Experience Cloud product icon and then choose **Adobe
