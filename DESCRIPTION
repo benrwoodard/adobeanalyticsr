@@ -17,7 +17,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends:
-    R (>= 3.2.0)
+    R (>= 4.1.0)
 Imports:
     assertthat (>= 0.2.0),
     jsonlite (>= 1.5),
@@ -43,9 +43,14 @@ Imports:
 Suggests:
     knitr,
     testthat (>= 3.0.0),
+<<<<<<< HEAD
     rmarkdown,
     httptest2
 RoxygenNote: 7.3.2
+=======
+    rmarkdown
+RoxygenNote: 7.3.3
+>>>>>>> master
 Roxygen: list(markdown = TRUE)
 RdMacros: lifecycle
 VignetteBuilder: knitr

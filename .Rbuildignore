@@ -16,3 +16,5 @@ data-raw/
 testdocs/
 ^/Users/ben\.woodard/Documents/GitHub/adobeanalyticsr/aa\.oauth$
 ^/Users/benwoodard/adobeanalyticsr/aa\.oauth$
+^README\.Rmd$
+^cran-comments\.md$
