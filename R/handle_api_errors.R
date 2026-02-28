@@ -2,21 +2,21 @@
 #'
 #' Handles 206 errors (wrong segment, dimension, or metric) and returns full
 #' error messages for 400-499 errors, instead of the abbreviated version
-#' returned by `httr::stop_for_status()`.
+#' returned by automatic error handling.
 #'
-#' @param resp Response object from `httr`
+#' @param resp Response object from `httr2`
 #' @param body Request body, or `NULL` if there is no body. Used to get more
 #' information about the offending components.
 #'
 #' @noRd
 handle_api_errors <- function(resp, body) {
-  status <- httr::status_code(resp)
+  status <- httr2::resp_status(resp)
 
 
   # 206 indicates wrong segment, dimension, or metric
   # Multiple errors may occur and be returned
   if (status == 206) {
-    req_errors <- httr::content(resp)$columns$columnErrors
+    req_errors <- httr2::resp_body_json(resp)$columns$columnErrors
 
     msgs <- purrr::map_chr(req_errors, function(e) {
       col_info <- get_by_column_id(body, e$columnId)
@@ -36,8 +36,8 @@ handle_api_errors <- function(resp, body) {
     stop(paste(unique(msgs), collapse = "\n"))
   }
   # 400 errors
-  else if (status >= 400 & status <= 500 & "errorCode" %in% names(httr::content(resp))) {
-    e_content <- httr::content(resp)
+  else if (status >= 400 & status <= 500 & "errorCode" %in% names(httr2::resp_body_json(resp))) {
+    e_content <- httr2::resp_body_json(resp)
     msg <- glue::glue(
       "errorCode: {e_content$errorCode}\nerrorDescription: {e_content$errorDescription}"
     )

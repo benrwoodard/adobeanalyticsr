@@ -9,7 +9,7 @@
 #' @return A data frame of dimensions and metrics
 #'
 #' @export
-#' @import assertthat httr dplyr tidyr
+#' @import assertthat dplyr tidyr
 #'
 aw_workspace_report <- function(req_body = '',
                                 company_id = Sys.getenv('AW_COMPANY_ID')) {
@@ -22,8 +22,8 @@ aw_workspace_report <- function(req_body = '',
 
   # creates token to aa.oauth if not present
   env_vars <- get_env_vars()
-  token_config <- get_token_config(client_id = env_vars$client_id,
-                                   client_secret = env_vars$client_secret)
+  token_headers <- get_token_config(client_id = env_vars$client_id,
+                                    client_secret = env_vars$client_secret)
 
   #grab the dimensions and metric names from the query
   query <-jsonlite::fromJSON(txt=req_body)
@@ -60,19 +60,28 @@ aw_workspace_report <- function(req_body = '',
   request_url <- sprintf("https://analytics.adobe.io/api/%s/reports/ranked",
                          company_id)
 
-  req <- httr::RETRY("POST",
-                     url = request_url,
-                     body = upload_file(req_body),
-                     encode = "json",
-                     token_config,
-                     httr::add_headers(
-                       `x-api-key` = env_vars$client_id,
-                       `x-proxy-global-company-id` = company_id
-                     ))
+  # Build the request
+  req <- httr2::request(request_url) %>%
+      httr2::req_method("POST")
 
-  httr::stop_for_status(req)
+  # Add headers
+  headers <- c(
+      token_headers,
+      `x-api-key` = env_vars$client_id,
+      `x-proxy-global-company-id` = company_id
+  )
+  req <- httr2::req_headers(req, !!!headers)
 
-  res <- httr::content(req, as = "text",encoding = "UTF-8")
+  # Add body from file
+  req <- httr2::req_body_file(req, req_body)
+
+  # Add retry logic
+  req <- httr2::req_retry(req, max_tries = 3)
+
+  # Perform request (with automatic error handling)
+  resp <- httr2::req_perform(req)
+
+  res <- httr2::resp_body_string(resp)
 
   #reformat from JSON
   res <- jsonlite::fromJSON(res)
