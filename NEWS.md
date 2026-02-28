@@ -1,3 +1,19 @@
+# adobeanalyticsr 0.5.2
+
+* **BREAKING CHANGE**: JWT authentication is now **DEPRECATED** and blocked
+  - JWT credentials reached end of life on June 30, 2025
+  - JWT will stop working by March 1, 2026
+  - `auth_jwt()` now throws an error with migration instructions
+  - **ACTION REQUIRED**: Migrate to S2S (OAuth Server-to-Server) authentication
+  - See migration guide: https://developer.adobe.com/developer-console/docs/guides/authentication/ServerToServerAuthentication/migration
+
+* **Internal change**: Migrated from `httr` to `httr2` for all API calls
+  - All HTTP requests now use `httr2` instead of `httr`
+  - Improved retry logic and error handling
+  - Better support for modern HTTP features
+  - OAuth token generation still uses `httr` for backwards compatibility
+  - No changes to public API - all existing code should continue to work
+
 # adobeanalyticsr 0.5.1
 
 * added global for "id" to fix dependency on defunct dplyr function

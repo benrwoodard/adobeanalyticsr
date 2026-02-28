@@ -58,7 +58,7 @@ if(overwrite){
                      debug = debug,
                      company_id = company_id)
 
-  table <- tidyr::as_tibble(httr::content(res)[[1]]) %>%
+  table <- tidyr::as_tibble(httr2::resp_body_json(res)[[1]]) %>%
     tidyr::unnest(status) %>%
     tidyr::unnest_wider(tags)
 
